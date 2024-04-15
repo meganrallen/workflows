@@ -25,7 +25,7 @@ jobs:
           
       - name: Run microservice in container
         run: |
-          docker run -d --name api.py -p 8080:8080 rest
+          docker run -d --name rest-container -p 8080:8080 rest
           sleep 15 # Adjust sleep time as needed based on your microservice startup time
 
       - name: Verify microservice response
@@ -35,5 +35,5 @@ jobs:
 
       - name: Stop and remove container
         run: |
-          docker stop rest
-          docker rm rest
+          docker stop rest-container
+          docker rm rest-container
