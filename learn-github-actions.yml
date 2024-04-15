@@ -35,5 +35,5 @@ jobs:
 
       - name: Stop and remove container
         run: |
-          docker stop your-container-name
-          docker rm your-container-name
+          docker stop rest
+          docker rm rest
