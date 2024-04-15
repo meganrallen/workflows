@@ -1,0 +1,39 @@
+name: learn-github-actions
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    name: ${{ github.actor }} is learning GitHub Actions
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '16' # or any other version you require
+
+      - name: Build Docker image
+        run: |
+          docker build -t rest .
+          
+      - name: Run microservice in container
+        run: |
+          docker run -d --name api.py -p 8080:8080 rest
+          sleep 15 # Adjust sleep time as needed based on your microservice startup time
+
+      - name: Verify microservice response
+        run: |
+          curl http://localhost:8080/fib # Adjust port number if needed
+          # Add more curl commands to verify other endpoints as required
+
+      - name: Stop and remove container
+        run: |
+          docker stop your-container-name
+          docker rm your-container-name
